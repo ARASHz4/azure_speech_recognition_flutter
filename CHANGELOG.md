@@ -1,3 +1,6 @@
+## 1.0.0
+- Compatibility with Flutter 3.32.0
+
 ## 0.9.6
 - Fix: Update gradle for compatibility with Android Studio Ladybug 2024.2.1.
 

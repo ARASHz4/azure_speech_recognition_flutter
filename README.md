@@ -15,20 +15,20 @@ __Important__: To use this plugin you must have already created an account on th
 To install the package use the latest version:
 
 ```dart
-azure_speech_recognition_null_safety: ^<insert_latest_version_here>
+azure_speech_recognition_flutter: ^1.0.0
 ```
 
 ## Usage
 
 ```dart
-import 'package:azure_speech_recognition_null_safety/azure_speech_recognition_null_safety.dart';
+import 'package:azure_speech_recognition_flutter/azure_speech_recognition_flutter.dart';
 ```
 
 ## Initializer
 The language default setting is "en-EN" but you could use what you want (if it is supported). 
 The segmentation silence timeout default is 1000 ms. (It must be an integer in the range 100 to 5000)
 ```dart
-AzureSpeechRecognition.initialize("your_subscription_key", "your_server_region", lang: "it-IT", timeout: "3000");
+AzureSpeechRecognitionFlutter.initialize("your_subscription_key", "your_server_region", lang: "it-IT", timeout: "3000");
 ```
 
 ## Types of recognition
@@ -42,7 +42,7 @@ Performs speech recognition until silence is detected.
 - Returns partial results that are prone to change in the `setRecognitionResultHandler` call (is called multiple times, every time a new partial transcription is received).
 
 ```dart
-AzureSpeechRecognition.simpleVoiceRecognition();
+AzureSpeechRecognitionFlutter.simpleVoiceRecognition();
 ```
 
 ### Continuous voice recognition
@@ -51,12 +51,12 @@ Calling the method toggles the speech recognition on or off.
 
 __Warning__: You must always stop the recognition manually to avoid memory leaks.
 
-- Continuosly returns the finalized transcriptions through a call to `setFinalTranscription` (calls it every time a final transcription is received, and won't stop calling it until the recognition is manually stopped).
+- Continuously returns the finalized transcriptions through a call to `setFinalTranscription` (calls it every time a final transcription is received, and won't stop calling it until the recognition is manually stopped).
 
-- Continuosly returns the partial transcriptions through a call to `setRecognitionResultHandler` (calls it every time a final transcription is received, and won't stop calling it until the recognition is manually stopped).
+- Continuously returns the partial transcriptions through a call to `setRecognitionResultHandler` (calls it every time a final transcription is received, and won't stop calling it until the recognition is manually stopped).
 
 ```dart
-AzureSpeechRecognition.continuousRecording();
+AzureSpeechRecognitionFlutter.continuousRecording();
 ```
 
 ## Example program
@@ -69,7 +69,7 @@ AzureSpeechRecognition _speechAzure;
 
 void activateSpeechRecognizer(){
     // MANDATORY INITIALIZATION
-  AzureSpeechRecognition.initialize("your_subscription_key", "your_server_region", lang: "it-IT", timeout: "3000");
+  AzureSpeechRecognitionFlutter.initialize("your_subscription_key", "your_server_region", lang: "it-IT", timeout: "3000");
   
   _speechAzure.setFinalTranscription((text) {
     // do what you want with your final transcription
@@ -84,7 +84,7 @@ void activateSpeechRecognizer(){
   @override
   void initState() {
     
-    _speechAzure = new AzureSpeechRecognition();
+    _speechAzure = AzureSpeechRecognitionFlutter();
 
     activateSpeechRecognizer();
 
@@ -95,7 +95,7 @@ void activateSpeechRecognizer(){
   // This is the function you'll call to start the recognition
   Future recognizeVoice() async {
     try {
-      AzureSpeechRecognition.simpleVoiceRecognition();
+      AzureSpeechRecognitionFlutter.simpleVoiceRecognition();
     } on PlatformException catch (e) {
       print("Failed start the recognition: '${e.message}'.");
     }
