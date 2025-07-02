@@ -1,19 +1,21 @@
-import 'package:azure_speech_recognition_null_safety/azure_speech_recognition_null_safety.dart';
+import 'package:azure_speech_recognition_flutter/azure_speech_recognition_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:math';
 
 class SimpleRecognitionScreen extends StatefulWidget {
+  const SimpleRecognitionScreen({super.key});
+
   @override
-  _SimpleRecognitionScreenState createState() =>
+  State<SimpleRecognitionScreen> createState() =>
       _SimpleRecognitionScreenState();
 }
 
 class _SimpleRecognitionScreenState extends State<SimpleRecognitionScreen>
     with SingleTickerProviderStateMixin {
   String _centerText = 'Unknown';
-  late AzureSpeechRecognition _speechAzure;
-  String subKey = dotenv.get("AZURE_KEY");
+  late AzureSpeechRecognitionFlutter _speechAzure;
+  String token = dotenv.get("AZURE_TOKEN");
   String region = dotenv.get('AZURE_REGION');
   String lang = "en-US";
   String timeout = "2000";
@@ -22,7 +24,7 @@ class _SimpleRecognitionScreenState extends State<SimpleRecognitionScreen>
 
   void activateSpeechRecognizer() {
     // MANDATORY INITIALIZATION
-    AzureSpeechRecognition.initialize(subKey, region,
+    AzureSpeechRecognitionFlutter.initialize(token, region,
         lang: lang, timeout: timeout);
 
     _speechAzure.setFinalTranscription((text) {
@@ -49,7 +51,7 @@ class _SimpleRecognitionScreenState extends State<SimpleRecognitionScreen>
 
   @override
   void initState() {
-    _speechAzure = AzureSpeechRecognition();
+    _speechAzure = AzureSpeechRecognitionFlutter();
     controller =
         AnimationController(vsync: this, duration: Duration(seconds: 2))
           ..repeat();
@@ -59,11 +61,11 @@ class _SimpleRecognitionScreenState extends State<SimpleRecognitionScreen>
 
   Future _recognizeVoice() async {
     try {
-      AzureSpeechRecognition
+      AzureSpeechRecognitionFlutter
           .simpleVoiceRecognition(); //await platform.invokeMethod('azureVoice');
-      print("Started recognition with subKey: $subKey");
+      debugPrint("Started recognition with subKey: $token");
     } on Exception catch (e) {
-      print("Failed to get text '$e'.");
+      debugPrint("Failed to get text '$e'.");
     }
   }
   
@@ -87,7 +89,6 @@ class _SimpleRecognitionScreenState extends State<SimpleRecognitionScreen>
             ),
             Center(
               child: AnimatedBuilder(
-                child: FlutterLogo(size: 200),
                 animation: controller,
                 builder: (_, child) {
                   return Transform.rotate(
@@ -95,6 +96,7 @@ class _SimpleRecognitionScreenState extends State<SimpleRecognitionScreen>
                     child: child,
                   );
                 },
+                child: FlutterLogo(size: 200),
               ),
             ),
             SizedBox(height: 40,),

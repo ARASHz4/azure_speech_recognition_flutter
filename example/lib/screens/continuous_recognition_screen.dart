@@ -1,10 +1,12 @@
-import 'package:azure_speech_recognition_null_safety/azure_speech_recognition_null_safety.dart';
+import 'package:azure_speech_recognition_flutter/azure_speech_recognition_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ContinuousRecognitionScreen extends StatefulWidget {
+  const ContinuousRecognitionScreen({super.key});
+
   @override
-  _ContinuousRecognitionScreenState createState() =>
+  State<ContinuousRecognitionScreen> createState() =>
       _ContinuousRecognitionScreenState();
 }
 
@@ -17,12 +19,13 @@ class _ContinuousRecognitionScreenState
   @override
   void initState() {
     super.initState();
-    final AzureSpeechRecognition _azureSpeechRecognition =
-        AzureSpeechRecognition();
-    AzureSpeechRecognition.initialize(
-        dotenv.get('AZURE_KEY'), dotenv.get('AZURE_REGION'),
+
+    final AzureSpeechRecognitionFlutter azureSpeechRecognition =
+        AzureSpeechRecognitionFlutter();
+    AzureSpeechRecognitionFlutter.initialize(
+        dotenv.get('AZURE_TOKEN'), dotenv.get('AZURE_REGION'),
         lang: 'en-US', timeout: '1500');
-    _azureSpeechRecognition.setFinalTranscription((text) {
+    azureSpeechRecognition.setFinalTranscription((text) {
       if (text.isEmpty) return;
 
       setState(() {
@@ -30,13 +33,13 @@ class _ContinuousRecognitionScreenState
         _intermediateResult = '';
       });
     });
-    _azureSpeechRecognition.onExceptionHandler(
+    azureSpeechRecognition.onExceptionHandler(
         (exception) => debugPrint("Speech recognition exception: $exception"));
-    _azureSpeechRecognition.setRecognitionStartedHandler(
+    azureSpeechRecognition.setRecognitionStartedHandler(
         () => debugPrint("Speech recognition has started."));
-    _azureSpeechRecognition.setRecognitionStoppedHandler(
+    azureSpeechRecognition.setRecognitionStoppedHandler(
         () => debugPrint("Speech recognition has stopped."));
-    _azureSpeechRecognition.setRecognitionResultHandler((text) {
+    azureSpeechRecognition.setRecognitionResultHandler((text) {
       setState(() {
         _intermediateResult = text;
       });
@@ -57,7 +60,7 @@ class _ContinuousRecognitionScreenState
               setState(() {
                 _isMicOn = !_isMicOn;
               });
-              AzureSpeechRecognition.continuousRecording();
+              AzureSpeechRecognitionFlutter.continuousRecording();
             },
             child: Container(
               width: 80,
