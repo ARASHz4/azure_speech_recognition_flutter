@@ -1,7 +1,7 @@
 name: azure_speech_recognition_flutter
-description: "Azure Speech Recognition Flutter"
+description: "Azure Speech Recognition for Flutter"
 version: 1.0.0
-homepage:
+homepage: https://github.com/ARASHz4/azure_speech_recognition_flutter
 
 environment:
   sdk: ^3.8.1
