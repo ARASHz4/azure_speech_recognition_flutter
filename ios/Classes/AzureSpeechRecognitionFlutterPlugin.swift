@@ -10,7 +10,7 @@ struct SimpleRecognitionTask {
 }
 
 @available(iOS 13.0, *)
-public class SwiftAzureSpeechRecognitionPlugin: NSObject, FlutterPlugin {
+public class AzureSpeechRecognitionFlutterPlugin: NSObject, FlutterPlugin {
     var azureChannel: FlutterMethodChannel
     var continuousListeningStarted: Bool = false
     var continuousSpeechRecognizer: SPXSpeechRecognizer? = nil
@@ -18,7 +18,7 @@ public class SwiftAzureSpeechRecognitionPlugin: NSObject, FlutterPlugin {
 
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "azure_speech_recognition", binaryMessenger: registrar.messenger())
-        let instance: SwiftAzureSpeechRecognitionPlugin = SwiftAzureSpeechRecognitionPlugin(azureChannel: channel)
+        let instance: AzureSpeechRecognitionFlutterPlugin = AzureSpeechRecognitionFlutterPlugin(azureChannel: channel)
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
     init(azureChannel: FlutterMethodChannel) {

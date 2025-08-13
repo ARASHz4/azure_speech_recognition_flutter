@@ -15,7 +15,7 @@ __Important__: To use this plugin you must have already created an account on th
 To install the package use the latest version:
 
 ```dart
-azure_speech_recognition_flutter: ^1.0.1
+azure_speech_recognition_flutter: ^1.0.2
 ```
 
 ## Usage

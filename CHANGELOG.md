@@ -1,3 +1,6 @@
+## 1.0.2
+- Fix Bug in iOS
+
 ## 1.0.1
 - Fix Bug in iOS
 
