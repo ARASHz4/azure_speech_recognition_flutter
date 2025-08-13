@@ -15,7 +15,7 @@ __Important__: To use this plugin you must have already created an account on th
 To install the package use the latest version:
 
 ```dart
-azure_speech_recognition_flutter: ^1.0.0
+azure_speech_recognition_flutter: ^1.0.1
 ```
 
 ## Usage
@@ -28,7 +28,7 @@ import 'package:azure_speech_recognition_flutter/azure_speech_recognition_flutte
 The language default setting is "en-EN" but you could use what you want (if it is supported). 
 The segmentation silence timeout default is 1000 ms. (It must be an integer in the range 100 to 5000)
 ```dart
-AzureSpeechRecognitionFlutter.initialize("your_subscription_key", "your_server_region", lang: "it-IT", timeout: "3000");
+AzureSpeechRecognitionFlutter.initialize("your_subscription_key", "your_server_region", lang: "en-US", timeout: "3000");
 ```
 
 ## Types of recognition
@@ -69,7 +69,7 @@ AzureSpeechRecognition _speechAzure;
 
 void activateSpeechRecognizer(){
     // MANDATORY INITIALIZATION
-  AzureSpeechRecognitionFlutter.initialize("your_subscription_key", "your_server_region", lang: "it-IT", timeout: "3000");
+  AzureSpeechRecognitionFlutter.initialize("your_subscription_key", "your_server_region", lang: "en-US", timeout: "3000");
   
   _speechAzure.setFinalTranscription((text) {
     // do what you want with your final transcription
